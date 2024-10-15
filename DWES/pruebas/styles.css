@@ -1,0 +1,51 @@
+.check{
+    margin-left: 5%;
+}
+
+form{
+    background-color: greenyellow;
+    padding: 2em;
+    margin-left: 25%;
+    margin-right: 25%;
+    border-radius: 10px;
+}
+
+input[type=text]{
+    background-color: aqua;
+}
+
+.titulo{
+    color: red;
+    font-style: italic;
+}
+
+h1{
+    color: purple;
+    text-align: center;
+}
+
+h2{
+    color: darkred;
+    text-align: center;
+}
+
+textarea{
+    width: 60%;
+    height: 50px;
+    background-color: deepskyblue;
+}
+
+fieldset > * {
+    margin-bottom: 10px;
+}
+
+input[type=submit]{
+    margin-top: 20px;
+}
+
+@media (max-width: 900px){
+    form{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}

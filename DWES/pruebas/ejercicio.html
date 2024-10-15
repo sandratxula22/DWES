@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <h1>CENTRO DE ESTUDIOS</h1>
+        <h2>VALLADOLID</h2>
+        <fieldset>
+            <legend>DATOS PARA LA MATR&Iacute;CULA</legend>
+
+            <label for="nombre" class="titulo">Nombre*:</label>
+            <input type="text" id="nombre" required><br>
+            <label for="apellido" class="titulo">Apellido*:</label>
+            <input type="text" id="apellido" required><br>
+            <label for="direccion" class="titulo">Direcci&oacute;n:</label>
+            <input type="text" id="direccion" placeholder="Calle, n&uacute;mero, piso, letra"><br>
+
+            <label class="titulo">Sexo:</label>
+            <input type="radio" id="mujer" name="sexo" value="mujer">
+            <label for="mujer">Mujer</label>
+            <input type="radio" id="hombre" name="sexo" value="hombre">
+            <label for="hombre">Hombre</label><br>
+
+            <label class="titulo">Fotograf&iacute;a:</label>
+            <input type="file" accept="image/jpeg"><br>
+
+            <label class="titulo">Modalidad:</label><br>
+            <input type="radio" id="distancia" name="modalidad" value="distancia">
+            <label for="distancia">Distancia</label><br>
+            <div class="check">
+                <input type="checkbox" id="lenguajes" name="opcion" value="Lenguajes de marcas">
+                <label for="lenguajes">Lenguajes de marcas</label><br>
+                <input type="checkbox" id="programacion" name="opcion" value="Programación">
+                <label for="programacion">Programación</label><br>
+                <input type="checkbox" id="bases" name="opcion" value="Bases de Datos">
+                <label for="bases">Bases de Datos</label><br>
+            </div>
+            <input type="radio" id="presencial" name="modalidad" value="presencial" checked="checked">
+            <label for="presencial">Presencial</label><br>
+
+            <label class="titulo">Curr&iacute;culum vitae:</label>
+            <input type="file" accept=".pdf"><br>
+
+            <label for="idioma" class="titulo">Idioma:</label>
+            <select id="idioma">
+                <option value="ingles" selected>Ingl&eacute;s</option>
+                <option value="aleman">Alem&aacute;n</option>
+                <option value="frances">Franc&eacute;s</option>
+            </select><br>
+
+            <label for="texto" class="titulo">Breve descripci&oacute;n personal:</label><br>
+            <textarea placeholder="Utilice este recuadro para escribir" id="texto"></textarea><br>
+
+            <label for="fecha" class="titulo">Fecha:</label>
+            <input type="date" id="fecha" value="2022-01-31"><br>
+
+            <label for="hora" class="titulo">Elija una hora:</label>
+            <input type="time" id="hora" value="15:30"><br>
+
+        </fieldset>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
