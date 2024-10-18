@@ -7,12 +7,13 @@
 </head>
 <body>
     <?php
-    
+    //Para que no se pueda acceder sin enviar el formulario
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $texto = $_POST['texto'];
         $clave = $_POST['clave'];
         $accion = $_POST['accion'];
-
+        
+        //función que encripta o desencripta el texto
         function procesarText($texto, $clave, $accion){
             $res = "";
             foreach(str_split($texto) as $char){
@@ -27,6 +28,7 @@
             return $res;
         }
 
+        //Comprobamos si cumple las condiciones y si las cumple usamos la función
         if(strlen($texto)>= 10 && $clave >=1 && $clave <= 99){
             $accionTexto = "";
             if($accion == "encriptar"){
