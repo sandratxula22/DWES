@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 6</title>
+    <title>Provincias</title>
     <style>
         ul{
             list-style: none;
@@ -14,13 +14,12 @@
 </head>
 
 <body>
-    <h1>NÚMEROS PRIMOS</h1>
-    <form action="procesar.php" method="post">
-        <legend>Elige un número para saber qué números primos hay entre el 1 y tu número</legend>
+    <form action="provincias.php" method="get">
+        <legend>Escribe una provincia para buscar</legend>
         <ul>
             <li>
-                <label for="num">Número:</label>
-                <input type="number" id="num" name="num" required>
+                <label for="provincia">Provincia:</label>
+                <input type="text" id="provincia" name="provincia">
             </li>
         </ul>
 
