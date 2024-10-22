@@ -14,8 +14,10 @@
         $num = $_POST["num"];
 
         echo "<h2>Números primos entre 1 y $num</h2>";
+        //recorro desde 1 hasta mi número
         for ($i=1;$i<=$num;$i++) {
             $esPrimo = true;
+            //voy desde 2 hasta el número anterior a mi número, si es divisible entre alguno, ya no es primo
             for($j=2;$j<$i;$j++){
                 if($i % $j == 0){
                     $esPrimo = false;
