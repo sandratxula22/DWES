@@ -98,6 +98,7 @@ include('bbdd.php');
     } else {
         echo "Error en la consulta: " . $conn->error;
     }
+    $conn->close();
     ?>
 </body>
 
