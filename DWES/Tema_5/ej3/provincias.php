@@ -1,5 +1,11 @@
 <?php
 include('bbdd.php');
+
+// Verificar si se ha enviado una comunidad
+if (!isset($_POST["comunidades"])) {
+    header("Location: index.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
