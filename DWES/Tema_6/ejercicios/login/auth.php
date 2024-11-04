@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include("bbdd.php");
 
 if(isset($_POST["user"], $_POST["password"])){
@@ -11,11 +13,10 @@ if(isset($_POST["user"], $_POST["password"])){
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if($result){
-
+    if($result->num_rows>0){
         while($row = $result->fetch_assoc()){
             if($password = $row["pass"]){
-                 
+                
             }
         }
     }
