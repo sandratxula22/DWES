@@ -2,7 +2,7 @@
 //variables de la bbdd
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "tienda_restaurantes";
 
 //crear conexión

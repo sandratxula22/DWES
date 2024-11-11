@@ -20,6 +20,7 @@ include('bbdd.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categorías</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .categorias-container {
             display: flex;
@@ -62,11 +63,11 @@ include('bbdd.php');
 </head>
 <body>
     <?php
+    include('navbar.php');
+
     //consulta para categorías
     $sql = "SELECT * FROM categorias";
     $result = $conn->query($sql);
-
-    include('navbar.php');
     ?>
 
     <div class="categorias-container">
@@ -75,12 +76,12 @@ include('bbdd.php');
         if ($result->num_rows > 0) {
             // Mostrar todas las categorías
             while($row = $result->fetch_assoc()) {
-                $link_nombre = str_replace(' ', '', strtolower($row['nombre']));
+                $id_categoria = $row['id_categoria'];
                 ?>
                     <div class="categoria-card">
                         <h3> <?php echo $row['nombre']; ?></h3>
                         <p> <?php echo $row['descripcion']; ?></p>
-                        <a href="productos.php?=<?php echo $link_nombre;?>">Ver productos</a>
+                        <a href="productos.php?id_categoria=<?php echo $id_categoria;?>">Ver productos</a>
                     </div>
                 <?php
             }
