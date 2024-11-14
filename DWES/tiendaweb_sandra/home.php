@@ -47,7 +47,7 @@ include('bbdd.php');
             font-size: 0.9rem;
             color: #555;
         }
-        .categoria-card a {
+        form input[type="submit"] {
             display: inline-block;
             margin-top: 10px;
             padding: 8px 15px;
@@ -55,8 +55,9 @@ include('bbdd.php');
             color: white;
             text-decoration: none;
             border-radius: 5px;
+            border: none;
         }
-        .categoria-card a:hover {
+        form input[type="submit"]:hover {
             background-color: #45a049;
         }
     </style>
@@ -81,7 +82,10 @@ include('bbdd.php');
                     <div class="categoria-card">
                         <h3> <?php echo $row['nombre']; ?></h3>
                         <p> <?php echo $row['descripcion']; ?></p>
-                        <a href="productos.php?id_categoria=<?php echo $id_categoria;?>">Ver productos</a>
+                        <form action="productos.php" method="post">
+                            <input type="hidden" name="id_categoria" value="<?php echo $id_categoria;?>">
+                            <input type="submit" name="submit" value="Ver productos">
+                        </form>
                     </div>
                 <?php
             }

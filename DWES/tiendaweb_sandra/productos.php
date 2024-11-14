@@ -101,61 +101,109 @@ include('bbdd.php');
     ?>
     <div class="contenedor">
         <?php
-        if (isset($_GET['id_categoria'])) {
-            $id_categoria = $_GET['id_categoria'];
+        //si no se llega enviando el formulario se redirige
+        if (isset($_POST['submit'])) {
+            if (isset($_POST['id_categoria'])) {
+                $id_categoria = $_POST['id_categoria'];
 
-            //Consulta para sacar el nombre y descripción de la categoría
-            $sql_nombre = "SELECT * FROM categorias WHERE id_categoria = ?";
-            $stmt_nombre = $conn->prepare($sql_nombre);
-            $stmt_nombre->bind_param("i", $id_categoria);
-            $stmt_nombre->execute();
-            $result_categoria = $stmt_nombre->get_result();
+                //Consulta para sacar el nombre y descripción de la categoría
+                $sql_nombre = "SELECT * FROM categorias WHERE id_categoria = ?";
+                $stmt_nombre = $conn->prepare($sql_nombre);
+                $stmt_nombre->bind_param("i", $id_categoria);
+                $stmt_nombre->execute();
+                $result_categoria = $stmt_nombre->get_result();
 
-            //Realizar la consulta para obtener los productos de la categoría
-            $sql = "SELECT * FROM productos WHERE id_categoria = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("i", $id_categoria);
+                //Realizar la consulta para obtener los productos de la categoría
+                $sql = "SELECT * FROM productos WHERE id_categoria = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $id_categoria);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                //Mostrar nombre y descripción de la categoría
+                if ($result_categoria->num_rows > 0) {
+                    $row_categoria = $result_categoria->fetch_assoc();
+        ?>
+                    <h2><?php echo $row_categoria['nombre']; ?></h2>
+                    <p><?php echo $row_categoria['descripcion']; ?></p>
+                <?php
+                }
+
+                //Mostrar los productos
+                if ($result->num_rows > 0) {
+                ?>
+                    <table>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Unidades</th>
+                        </tr>
+                        <?php
+                        while ($row = $result->fetch_assoc()) {
+                        ?>
+                            <tr>
+                                <form action="productos.php" method="post">
+                                    <td><?php echo $row['nombre']; ?></td>
+                                    <td><?php echo $row['descripcion']; ?></td>
+                                    <td><?php echo $row['precio'] . "€"; ?></td>
+                                    <td><?php echo $row['stock']; ?></td>
+                                    <td><input type="number" name="cantidad" value="1" min="1"></td>
+                                    <td>
+                                        <input type="hidden" name="id_categoria" value="<?php echo $id_categoria; ?>">
+                                        <input type="hidden" name="id_producto" value="<?php echo $row['id_producto']; ?>">
+                                        <input type="submit" value="Añadir" name="submit">
+                                    </td>
+                                </form>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
+        <?php
+                } else {
+                    echo '<p>No hay productos disponibles en esta categoría.</p>';
+                }
+            }
+        } else {
+            header("Location: home.php");
+            exit();
+        }
+
+
+        //EL CARRITO SE GUARDA AQUÍ
+        //inicializar variable para el carrito si no existe
+        if (!isset($_SESSION['carrito'])) {
+            $_SESSION['carrito'] = [];
+        }
+        //Añadir productos al carrito
+        if (isset($_POST['id_producto'], $_POST['cantidad'])) {
+            $id_producto = $_POST['id_producto'];
+            $cantidad = $_POST['cantidad'];
+            //consulta sobre el producto añadido para tener los demás datos
+            $sql_carrito = "SELECT * FROM productos WHERE id_producto = ?";
+            $stmt = $conn->prepare($sql_carrito);
+            $stmt->bind_param("i", $id_producto);
             $stmt->execute();
             $result = $stmt->get_result();
-
-            //Mostrar nombre y descripción de la categoría
-            if ($result_categoria->num_rows > 0) {
-                $row_categoria = $result_categoria->fetch_assoc();
-        ?>
-                <h2><?php echo $row_categoria['nombre']; ?></h2>
-                <p><?php echo $row_categoria['descripcion']; ?></p>
-            <?php
-            }
-
-            //Mostrar los productos
+            //si el producto se encuentra en la bbdd
             if ($result->num_rows > 0) {
-            ?>
-                <table>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Unidades</th>
-                    </tr>
-                    <?php
-                    while ($row = $result->fetch_assoc()) {
-                    ?>
-                        <tr>
-                            <td><?php echo $row['nombre']; ?></td>
-                            <td><?php echo $row['descripcion']; ?></td>
-                            <td><?php echo $row['precio']; ?></td>
-                            <td><?php echo $row['stock']; ?></td>
-                            <td><input type="number" name="num"></td>
-                            <td><input type="submit" value="Comprar" name="submit"></td>
-                        </tr>
-                    <?php
+                //lo guardamos en una variable para poder acceder a sus campos
+                $producto = $result->fetch_assoc();
+                //recorrer el carrito para ver si el producto esta ya añadido
+                $encontrado = false;
+                for ($i = 0; $i < count($_SESSION['carrito']); $i++) {
+                    if ($_SESSION['carrito'][$i]['id_producto'] == $id_producto) {
+                        $_SESSION['carrito'][$i]['cantidad'] += $cantidad;
+                        $encontrado = true;
                     }
-                    ?>
-                </table>
-        <?php
-            } else {
-                echo '<p>No hay productos disponibles en esta categoría.</p>';
+                }
+                //si no estaba en el carrito esto sigue a false
+                if (!$encontrado) {
+                    $producto['cantidad'] = $cantidad;
+                    $_SESSION['carrito'][] = $producto;
+                }
             }
         }
         ?>

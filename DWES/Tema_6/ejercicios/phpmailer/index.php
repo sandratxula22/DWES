@@ -11,7 +11,7 @@ try {
     $mail->isSMTP();
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = 'ssl';
-    $mail->Port = 25;
+    $mail->Port = 465;
 
     //SMTP
     $mail->Host = 'smtp.gmail.com';
@@ -31,3 +31,4 @@ try {
 } catch (Exception $e) {
     echo ' Error: ' . $mail->ErrorInfo;
 }
+?>
