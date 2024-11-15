@@ -1,3 +1,7 @@
+<?php
+//Sandra Pico Álvarez
+//navbar para incluir en las páginas
+?>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #6a1b9a;">
     <a class="navbar-brand"><?php echo $_SESSION['user']; ?></a>
      <!-- Botón collapse para dispositivos pequeños -->

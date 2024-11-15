@@ -10,16 +10,16 @@ try {
     //PHPMailer
     $mail->isSMTP();
     $mail->SMTPAuth = true;
-    $mail->SMTPSecure = 'ssl';
-    $mail->Port = 465;
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
 
     //SMTP
     $mail->Host = 'smtp.gmail.com';
-    $mail->Username = 'sandra.picalv.1@gmail.com';
-    $mail->Password = 'msaj yvzf hebp raxm';
+    $mail->Username = 'sandra.picalv.1@iesjulianmarias.es';
+    $mail->Password = 'dgzy cqpx kjxm aeyf';
 
     //email
-    $mail->setFrom('sandra.picalv.1@gmail.com', 'Sandra');
+    $mail->setFrom('sandra.picalv.1@iesjulianmarias.es', 'Sandra');
     $mail->addAddress('saandruuu22@gmail.com');
     $mail->Subject = 'PHPMailer Gmail';
     $mail->isHTML(true);

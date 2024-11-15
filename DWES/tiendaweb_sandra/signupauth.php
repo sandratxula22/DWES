@@ -2,7 +2,7 @@
 //Sandra Pico Álvarez
 //Página con el formulario para registrarse
 //Y para verificar el registro correcto o incorrecto
-include('bbdd.php');
+include('includes/bbdd.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 // Conectar a la base de datos
-include('bbdd.php');
+include('includes/bbdd.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,12 +92,18 @@ include('bbdd.php');
         .navbar {
             margin-bottom: 30px;
         }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
 <body>
     <?php
-    include('navbar.php');
+    include('includes/navbar.php');
     ?>
     <div class="contenedor">
         <?php
@@ -191,18 +197,33 @@ include('bbdd.php');
             if ($result->num_rows > 0) {
                 //lo guardamos en una variable para poder acceder a sus campos
                 $producto = $result->fetch_assoc();
-                //recorrer el carrito para ver si el producto esta ya añadido
-                $encontrado = false;
-                for ($i = 0; $i < count($_SESSION['carrito']); $i++) {
-                    if ($_SESSION['carrito'][$i]['id_producto'] == $id_producto) {
-                        $_SESSION['carrito'][$i]['cantidad'] += $cantidad;
-                        $encontrado = true;
+                //stock disponible en bbdd
+                $stock = $producto['stock'];
+                //buscamos en el carrito y si ese producto está guardamos cuantos hay
+                $cant_carrito = 0;
+                foreach ($_SESSION['carrito'] as $item) {
+                    if ($item['id_producto'] == $id_producto) {
+                        $cant_carrito += $item['cantidad'];
                     }
                 }
-                //si no estaba en el carrito esto sigue a false
-                if (!$encontrado) {
-                    $producto['cantidad'] = $cantidad;
-                    $_SESSION['carrito'][] = $producto;
+
+                //si la cantidad supera el stock mostramos error, sino añadimos
+                if (($cant_carrito + $cantidad) > $stock) {
+                    echo "<div class='error'>No puedes añadir al carrito más unidades de las que se disponen en stock</div>";
+                } else {
+                    //recorrer el carrito para ver si el producto esta ya añadido
+                    $encontrado = false;
+                    for ($i = 0; $i < count($_SESSION['carrito']); $i++) {
+                        if ($_SESSION['carrito'][$i]['id_producto'] == $id_producto) {
+                            $_SESSION['carrito'][$i]['cantidad'] += $cantidad;
+                            $encontrado = true;
+                        }
+                    }
+                    //si no estaba en el carrito esto sigue a false
+                    if (!$encontrado) {
+                        $producto['cantidad'] = $cantidad;
+                        $_SESSION['carrito'][] = $producto;
+                    }
                 }
             }
         }

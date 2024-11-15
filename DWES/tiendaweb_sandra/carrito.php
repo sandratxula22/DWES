@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 // Conectar a la base de datos
-include('bbdd.php');
+include('includes/bbdd.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,37 +117,36 @@ include('bbdd.php');
 
         form input[type="submit"] {
             background-color: #28a745;
-            /* Verde */
             color: white;
-            /* Texto blanco */
             border: none;
-            /* Sin borde */
             padding: 12px 24px;
-            /* Relleno del botón */
             font-size: 1.2em;
-            /* Tamaño de la fuente del botón */
             border-radius: 8px;
-            /* Bordes redondeados */
             cursor: pointer;
-            /* Cambiar el cursor a mano */
             transition: background-color 0.3s ease;
-            /* Efecto al pasar el ratón */
             display: block;
-            /* Asegura que el botón ocupe el ancho completo */
             margin: 20px auto;
-            /* Centrar el botón en la página */
         }
 
         form input[type="submit"]:hover {
             background-color: #218838;
-            /* Cambiar a verde más oscuro al pasar el ratón */
         }
     </style>
 </head>
 
 <body>
     <?php
-    include('navbar.php');
+    include('includes/navbar.php');
+    
+    //si se pulsa el botón eliminar borramos la línea
+    if(isset($_POST['submit'])){
+        $nombre = $_POST['nombre'];
+        foreach ($_SESSION['carrito'] as $index => $item) {
+            if($nombre === $item['nombre']){
+                unset($_SESSION['carrito'][$index]);
+            }
+        }
+    }
     ?>
     <h2>Carrito</h2>
     <?php
@@ -167,7 +166,7 @@ include('bbdd.php');
                 $producto_total = $item['precio'] * $item['cantidad'];
                 $total += $producto_total;
             ?>
-                <form>
+                <form action="carrito.php" method="post">
                     <tr>
                         <td><?php echo $item['nombre']; ?></td>
                         <td><?php echo $item['descripcion']; ?></td>
@@ -175,17 +174,20 @@ include('bbdd.php');
                         <td><?php echo $item['cantidad']; ?></td>
                         <td><?php echo $producto_total."€"; ?></td>
                         <td>
+                            <input type="hidden" name="nombre" value="<?php echo $item['nombre']; ?>">
                             <input type="submit" name="submit" value="Eliminar">
                         </td>
                     </tr>
                 </form>
             <?php
             }
+            $_SESSION['total'] = $total;
             ?>
         </table>
         <div class="total"><?php echo "Total: " . $total . "€"; ?></div>
-        <form action="realizar_pedido.php" method="post">
-            <input type="submit" value="Hacer pedido">
+        <form action="procesar_pago.php" method="post">
+            <input type="hidden" name="total" value="<?php echo $total; ?>">
+            <input type="submit" name="submit" value="Hacer pedido">
         </form>
     <?php
     } else {
@@ -193,6 +195,7 @@ include('bbdd.php');
         <h3>El carrito está vacío</h3>
     <?php
     }
+
     ?>
 </body>
 

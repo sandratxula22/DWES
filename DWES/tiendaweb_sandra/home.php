@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 // Conectar a la base de datos
-include('bbdd.php');
+include('includes/bbdd.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +64,7 @@ include('bbdd.php');
 </head>
 <body>
     <?php
-    include('navbar.php');
+    include('includes/navbar.php');
 
     //consulta para categorías
     $sql = "SELECT * FROM categorias";

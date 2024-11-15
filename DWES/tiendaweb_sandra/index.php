@@ -2,7 +2,7 @@
 //Sandra Pico Álvarez
 //Página con el formulario para iniciar la sesión
 //Y para verificar el inicio de sesión correcto o incorrecto
-include('bbdd.php');
+include('includes/bbdd.php');
 session_start();
 
 if (isset($_SESSION['user'])) {
@@ -92,6 +92,7 @@ if (isset($_SESSION['user'])) {
 
             //Verificar si la contraseña es correcta
             if (password_verify($password, $row['pass'])) {
+                $_SESSION['id_restaurante'] = $row['id_restaurante'];
                 $_SESSION['user'] = $user;
                 header("Location: home.php");
                 exit();
