@@ -12,6 +12,57 @@ if (!isset($_SESSION['user'])) {
 
 // Conectar a la base de datos
 include('includes/bbdd.php');
+
+//EL CARRITO SE GUARDA AQUÍ
+//inicializar variable para el carrito si no existe
+if (!isset($_SESSION['carrito'])) {
+    $_SESSION['carrito'] = [];
+}
+//Añadir productos al carrito
+if (isset($_POST['id_producto'], $_POST['cantidad'])) {
+    $id_producto = $_POST['id_producto'];
+    $cantidad = $_POST['cantidad'];
+    //consulta sobre el producto añadido para tener los demás datos
+    $sql_carrito = "SELECT * FROM productos WHERE id_producto = ?";
+    $stmt = $conn->prepare($sql_carrito);
+    $stmt->bind_param("i", $id_producto);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    //si el producto se encuentra en la bbdd
+    if ($result->num_rows > 0) {
+        //lo guardamos en una variable para poder acceder a sus campos
+        $producto = $result->fetch_assoc();
+        //stock disponible en bbdd
+        $stock = $producto['stock'];
+        //buscamos en el carrito y si ese producto está guardamos cuantos hay
+        $cant_carrito = 0;
+        foreach ($_SESSION['carrito'] as $item) {
+            if ($item['id_producto'] == $id_producto) {
+                $cant_carrito += $item['cantidad'];
+            }
+        }
+
+        //si la cantidad supera el stock mostramos error, sino añadimos
+        if (($cant_carrito + $cantidad) > $stock) {
+            $_SESSION['error'] = "<div class='error'>No puedes añadir al carrito más unidades de las que se disponen en stock</div>";
+        } else {
+            //recorrer el carrito para ver si el producto esta ya añadido
+            $encontrado = false;
+            for ($i = 0; $i < count($_SESSION['carrito']); $i++) {
+                if ($_SESSION['carrito'][$i]['id_producto'] == $id_producto) {
+                    $_SESSION['carrito'][$i]['cantidad'] += $cantidad;
+                    $encontrado = true;
+                }
+            }
+            //si no estaba en el carrito esto sigue a false
+            if (!$encontrado) {
+                $producto['cantidad'] = $cantidad;
+                $_SESSION['carrito'][] = $producto;
+            }
+            $_SESSION['exito'] = "<div class='exito'>Producto añadido al carrito correctamente</div>";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,6 +109,7 @@ include('includes/bbdd.php');
             font-size: 2em;
             color: #6a1b9a;
             margin-bottom: 10px;
+            margin-top: 35px;
         }
 
         p {
@@ -89,12 +141,13 @@ include('includes/bbdd.php');
             border: 1px solid #ddd;
         }
 
-        .navbar {
-            margin-bottom: 30px;
-        }
-
         .error {
             color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .exito{
+            color: green;
             font-weight: bold;
             margin-top: 10px;
         }
@@ -148,13 +201,36 @@ include('includes/bbdd.php');
                         </tr>
                         <?php
                         while ($row = $result->fetch_assoc()) {
+                            $cantidad_carrito = 0;
+                            if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
+                                foreach ($_SESSION['carrito'] as $item) {
+                                    if ($item['id_producto'] == $row['id_producto']) {
+                                        $cantidad_carrito = $item['cantidad'];
+                                        break;
+                                    }
+                                }
+                            }
+                            $stock_temp = $row['stock'] - $cantidad_carrito;
+                            $stock_aviso = '';
+                            if($stock_temp == 0){
+                                $stock_aviso = "<p class='error'>¡No quedan!</p>";
+                            }else if($stock_temp == 1){
+                                $stock_aviso = "<p class='error'>¡Sólo queda " . $stock_temp . "!</p>";
+                            }else if($stock_temp <= 5){
+                                $stock_aviso = "<p class='error'>¡Sólo quedan " . $stock_temp . "!</p>";
+                            }
+                            
+                            
                         ?>
                             <tr>
                                 <form action="productos.php" method="post">
                                     <td><?php echo $row['nombre']; ?></td>
                                     <td><?php echo $row['descripcion']; ?></td>
                                     <td><?php echo $row['precio'] . "€"; ?></td>
-                                    <td><?php echo $row['stock']; ?></td>
+                                    <td>
+                                        <?php echo $stock_temp; ?>
+                                        <?php echo $stock_aviso; ?>
+                                    </td>
                                     <td><input type="number" name="cantidad" value="1" min="1"></td>
                                     <td>
                                         <input type="hidden" name="id_categoria" value="<?php echo $id_categoria; ?>">
@@ -167,7 +243,16 @@ include('includes/bbdd.php');
                         }
                         ?>
                     </table>
-        <?php
+        <?php       
+                    //si hay mensaje de error o exito lo mostramos y despues lo eliminamos
+                    if(isset($_SESSION['error'])){
+                        echo $_SESSION['error'];
+                        unset($_SESSION['error']);
+                    }
+                    if(isset($_SESSION['exito'])){
+                        echo $_SESSION['exito'];
+                        unset($_SESSION['exito']);
+                    }
                 } else {
                     echo '<p>No hay productos disponibles en esta categoría.</p>';
                 }
@@ -175,57 +260,6 @@ include('includes/bbdd.php');
         } else {
             header("Location: home.php");
             exit();
-        }
-
-
-        //EL CARRITO SE GUARDA AQUÍ
-        //inicializar variable para el carrito si no existe
-        if (!isset($_SESSION['carrito'])) {
-            $_SESSION['carrito'] = [];
-        }
-        //Añadir productos al carrito
-        if (isset($_POST['id_producto'], $_POST['cantidad'])) {
-            $id_producto = $_POST['id_producto'];
-            $cantidad = $_POST['cantidad'];
-            //consulta sobre el producto añadido para tener los demás datos
-            $sql_carrito = "SELECT * FROM productos WHERE id_producto = ?";
-            $stmt = $conn->prepare($sql_carrito);
-            $stmt->bind_param("i", $id_producto);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            //si el producto se encuentra en la bbdd
-            if ($result->num_rows > 0) {
-                //lo guardamos en una variable para poder acceder a sus campos
-                $producto = $result->fetch_assoc();
-                //stock disponible en bbdd
-                $stock = $producto['stock'];
-                //buscamos en el carrito y si ese producto está guardamos cuantos hay
-                $cant_carrito = 0;
-                foreach ($_SESSION['carrito'] as $item) {
-                    if ($item['id_producto'] == $id_producto) {
-                        $cant_carrito += $item['cantidad'];
-                    }
-                }
-
-                //si la cantidad supera el stock mostramos error, sino añadimos
-                if (($cant_carrito + $cantidad) > $stock) {
-                    echo "<div class='error'>No puedes añadir al carrito más unidades de las que se disponen en stock</div>";
-                } else {
-                    //recorrer el carrito para ver si el producto esta ya añadido
-                    $encontrado = false;
-                    for ($i = 0; $i < count($_SESSION['carrito']); $i++) {
-                        if ($_SESSION['carrito'][$i]['id_producto'] == $id_producto) {
-                            $_SESSION['carrito'][$i]['cantidad'] += $cantidad;
-                            $encontrado = true;
-                        }
-                    }
-                    //si no estaba en el carrito esto sigue a false
-                    if (!$encontrado) {
-                        $producto['cantidad'] = $cantidad;
-                        $_SESSION['carrito'][] = $producto;
-                    }
-                }
-            }
         }
         ?>
     </div>

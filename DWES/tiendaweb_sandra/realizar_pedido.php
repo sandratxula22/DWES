@@ -46,7 +46,7 @@ require 'C:/xampp/htdocs/vendor/autoload.php';
 <body>
     <?php
     //si el pago de paypal ha sido correcto
-    if (isset($$_POST['submit'])) {
+    if (isset($_POST['submit'])) {
         $total = $_SESSION['total'];
         $id_restaurante = $_SESSION['id_restaurante'];
         $fecha_pedido = date("Y-m-d");

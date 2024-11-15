@@ -141,9 +141,20 @@ include('includes/bbdd.php');
     //si se pulsa el botón eliminar borramos la línea
     if(isset($_POST['submit'])){
         $nombre = $_POST['nombre'];
+        $cant_borrar = $_POST['cantidad_borrar'];
         foreach ($_SESSION['carrito'] as $index => $item) {
             if($nombre === $item['nombre']){
-                unset($_SESSION['carrito'][$index]);
+                //si la cantidad a borrar es menor o igual lo borra
+                if($cant_borrar <= $item['cantidad']){
+                    $_SESSION['carrito'][$index]['cantidad'] -= $cant_borrar;
+                    //si la cantidad es 0 borramos la línea
+                    if($_SESSION['carrito'][$index]['cantidad'] == 0){
+                        unset($_SESSION['carrito'][$index]);
+                        //reindexar los elementos del carrito ya que no se hace automático
+                        //y si tenemos 0, 1, 2 y borramos el index 1, nos quedariamos con 0, 2
+                        $_SESSION['carrito'] = array_values($_SESSION['carrito']);
+                    }
+                }
             }
         }
     }
@@ -158,8 +169,8 @@ include('includes/bbdd.php');
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Precio ud</th>
-                <th>Unidades</th>
                 <th>Precio total</th>
+                <th>Unidades</th>
             </tr>
             <?php
             foreach ($_SESSION['carrito'] as $item) {
@@ -171,8 +182,10 @@ include('includes/bbdd.php');
                         <td><?php echo $item['nombre']; ?></td>
                         <td><?php echo $item['descripcion']; ?></td>
                         <td><?php echo $item['precio']."€"; ?></td>
-                        <td><?php echo $item['cantidad']; ?></td>
                         <td><?php echo $producto_total."€"; ?></td>
+                        <td>
+                            <input type="number" name="cantidad_borrar" min="1" max="<?php echo $item['cantidad'];?>" value="<?php echo $item['cantidad'];?>">
+                        </td>
                         <td>
                             <input type="hidden" name="nombre" value="<?php echo $item['nombre']; ?>">
                             <input type="submit" name="submit" value="Eliminar">
@@ -185,7 +198,7 @@ include('includes/bbdd.php');
             ?>
         </table>
         <div class="total"><?php echo "Total: " . $total . "€"; ?></div>
-        <form action="procesar_pago.php" method="post">
+        <form action="realizar_pedido.php" method="post">
             <input type="hidden" name="total" value="<?php echo $total; ?>">
             <input type="submit" name="submit" value="Hacer pedido">
         </form>
@@ -195,7 +208,6 @@ include('includes/bbdd.php');
         <h3>El carrito está vacío</h3>
     <?php
     }
-
     ?>
 </body>
 

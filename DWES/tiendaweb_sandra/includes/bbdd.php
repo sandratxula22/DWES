@@ -1,8 +1,11 @@
 <?php
+//Sandra Pico Álvarez
+//conexión a la bbdd para incluir en las páginas
+
 //variables de la bbdd
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $database = "tienda_restaurantes";
 
 //crear conexión
