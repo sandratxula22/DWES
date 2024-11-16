@@ -2,7 +2,8 @@
 
 ## Descripción
 
-Este proyecto es una tienda online hecha con php que permite a los usuarios navegar por productos, agregarlos a un carrito y realizar pagos a través de PayPal.
+Este proyecto es una tienda online hecha con php que permite a los usuarios navegar por productos, agregarlos a un carrito y realizar pagos a través de PayPal. 
+(Se incluyen capturas de PayPal y PHPMailer en `capturas`)
 
 ## Características
 
@@ -45,9 +46,9 @@ Este proyecto es una tienda online hecha con php que permite a los usuarios nave
 4.  Acceder a cada categoría para visualizar los productos.  
 5.  Agregar productos al carrito.
 6.  Acceder al carrito para visualizar los productos en él. Desde aquí podemos:
-    *   Modificar los productos añadidos.
+    *   Modificar los productos añadidos, se pueden eliminar los productos seleccionando el número de el producto que queremos eliminar.
     *   Proceder al pago con PayPal.
-7.  Proceder al pago a través de PayPal:
+7.  Proceder al pago a través de PayPal en modo sandbox:
     *   Si has creado una aplicación en el entorno de desarrolladores de PayPal tendrás unas credenciales de prueba de usuario.
     *   En el caso contrario puedes usar las mías:
         -   usuario: `sb-2x7pv34077906@personal.example.com`
