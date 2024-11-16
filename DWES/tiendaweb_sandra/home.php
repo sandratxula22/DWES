@@ -12,6 +12,31 @@ if (!isset($_SESSION['user'])) {
 
 // Conectar a la base de datos
 include('includes/bbdd.php');
+
+function mostrarCategorias($conn) {
+    //consulta para categorías
+    $sql = "SELECT * FROM categorias";
+    $result = $conn->query($sql);
+    //Comprobar si hay categorías en la base de datos
+    if ($result->num_rows > 0) {
+        // Mostrar todas las categorías
+        while($row = $result->fetch_assoc()) {
+            $id_categoria = $row['id_categoria'];
+            ?>
+            <div class="categoria-card">
+                <h3><?php echo $row['nombre']; ?></h3>
+                <p><?php echo $row['descripcion']; ?></p>
+                <form action="productos.php" method="post">
+                    <input type="hidden" name="id_categoria" value="<?php echo $id_categoria;?>">
+                    <input type="submit" name="submit" value="Ver productos">
+                </form>
+            </div>
+            <?php
+        }
+    } else {
+        echo '<p>No hay categorías disponibles en este momento.</p>';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,32 +91,14 @@ include('includes/bbdd.php');
     <?php
     include('includes/navbar.php');
 
-    //consulta para categorías
+    
     $sql = "SELECT * FROM categorias";
     $result = $conn->query($sql);
     ?>
 
     <div class="categorias-container">
         <?php
-        // Comprobar si hay categorías en la base de datos
-        if ($result->num_rows > 0) {
-            // Mostrar todas las categorías
-            while($row = $result->fetch_assoc()) {
-                $id_categoria = $row['id_categoria'];
-                ?>
-                    <div class="categoria-card">
-                        <h3> <?php echo $row['nombre']; ?></h3>
-                        <p> <?php echo $row['descripcion']; ?></p>
-                        <form action="productos.php" method="post">
-                            <input type="hidden" name="id_categoria" value="<?php echo $id_categoria;?>">
-                            <input type="submit" name="submit" value="Ver productos">
-                        </form>
-                    </div>
-                <?php
-            }
-        } else {
-            echo '<p>No hay categorías disponibles en este momento.</p>';
-        }
+        mostrarCategorias($conn);
         ?>
     </div>
     <?php include('includes/footer.php'); ?>
