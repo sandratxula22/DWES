@@ -49,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]],
         //url para si se hace el pago bien o se cancela
         'application_context' => [
-            'return_url' => 'http://localhost/daw/DWES/DWES/tiendaweb_sandra/pago_completado.php',
-            'cancel_url' => 'http://localhost/daw/DWES/DWES/tiendaweb_sandra/pago_cancelado.php'
+            'return_url' => ' ',
+            'cancel_url' => 'http://localhost/dwes/tiendaweb_sandra/pago_cancelado.php'
         ]
     ];
 

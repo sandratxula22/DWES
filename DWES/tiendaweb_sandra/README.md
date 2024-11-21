@@ -34,7 +34,8 @@ Este proyecto es una tienda online hecha con php que permite a los usuarios nave
     *   Crear una aplicación en el entorno de desarrolladores de PayPal.
     *   Obtener las credenciales de API (Client ID y Secret) para el modo Sandbox.
     *   Configurar las credenciales en `paypal_config.php`.
-4.  Ejecutar la aplicación: Abrir `index.php` en un navegador web.
+4.  En el archivo `realizar_pedido.php` debes cambiar la "return_url" y "cancel_url" para que tenga la ruta absoluta donde ejecutas el proyecto.
+5.  Ejecutar la aplicación: Abrir `index.php` en un navegador web.
 
 ## Uso
 
