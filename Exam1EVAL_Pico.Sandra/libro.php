@@ -26,7 +26,17 @@ function mostrarDetalles($conn){
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()){
             //creamos la cookie del libro visitado
-            setcookie("ultimo_visitado", $row['titulo'], time() + 3600, "/");
+            if(isset($_COOKIE['ultimo_visitado'])){
+                $titulo = unserialize($_COOKIE['ultimo_visitado']);
+            }else{
+                $titulo = [];
+            }
+            if(count($titulo) >= 5){
+                array_shift($titulo);
+            }  
+            $titulo[] = $row['titulo'];
+
+            setcookie("ultimo_visitado", serialize($titulo), time() + 3600, "/");
             ?>
             <h1>Detalles del Libro: <?php echo $row['titulo']; ?></h1>
             <p><b>Autor:</b> <?php echo $row['autor']; ?></p>

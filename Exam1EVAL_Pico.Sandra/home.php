@@ -1,4 +1,4 @@
-<?php
+ <?php
 //página de catálogo de libros
 include("bbdd.php");
 session_start();
@@ -50,7 +50,12 @@ function mostrarUltimo(){
         ?>
         <h1>Último Libro Visitado</h1>
         <ul>
-            <li><?php echo $_COOKIE['ultimo_visitado']; ?></li>
+            <?php
+            $titulos = unserialize($_COOKIE['ultimo_visitado']); 
+            for($i=count($titulos) - 1; $i>= 0; $i--){
+                echo "<li>".$titulos[$i]."</li>";
+            }
+            ?>
         </ul>
         <?php
     }
