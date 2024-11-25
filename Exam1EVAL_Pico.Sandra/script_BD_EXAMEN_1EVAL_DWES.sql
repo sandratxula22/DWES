@@ -25,7 +25,7 @@ CREATE TABLE Resenias (
     id_libro INT NOT NULL,
     puntuacion INT NOT NULL,
     comentario TEXT,
-    fecha VARCHAR
+    fecha DATE,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
     FOREIGN KEY (id_libro) REFERENCES Libros(id_libro)
 );
