@@ -2,7 +2,7 @@
 //crear conexión a la base de datos
 $server = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "resenias_libros";
 
 $conn = new mysqli($server, $username, $password, $database);
