@@ -5,13 +5,13 @@
 //public static function toHtml(Empleado $emp): string
 
 class Empleado{
-    private array $numsTelefono = [];
-    private static int $sueldoTope = 199;
+    public array $numsTelefono = [];
+    public static int $sueldoTope = 199;
 
     public function __construct(
-        private string $nombre, 
-        private string $apellido, 
-        private int $sueldo = 1000,
+        public string $nombre, 
+        public string $apellido, 
+        public int $sueldo = 1000,
     ){}
 
     public function getSueldo(): int{
@@ -63,11 +63,11 @@ class Empleado{
         $html .= "Sueldo: ".$empleado->getSueldo()."<br>";
 
         if (!empty($empleado->getNumsTelefono())) {
-            $html .= "<ol>";
+            $html .= "Teléfonos: <ul>";
             foreach ($empleado->getNumsTelefono() as $telefono) {
                 $html .= "<li>" . $telefono . "</li>";
             }
-            $html .= "</ol>";
+            $html .= "</ul>";
         } else {
             $html .= "No hay teléfonos registrados.<br>";
         }
@@ -78,10 +78,32 @@ class Empleado{
 
 
 $empleado1 = new Empleado('Daniel', 'Gutiérrez');
-echo Empleado::toHTML($empleado1);
+//echo Empleado::toHTML($empleado1);
+//
+//$empleado1->anyadirTelefono(12432423);
+//$empleado1->anyadirTelefono(00000000);
+//
+//echo Empleado::toHTML($empleado1);
 
-$empleado1->anyadirTelefono(12432423);
-$empleado1->anyadirTelefono(00000000);
+if($empleado1 instanceof Empleado){
+    echo "Es un empleado<br>";
+    echo "La clase es ".get_class($empleado1)."<br>";
+    echo "<br>";
+    class_alias("Empleado", "Persona");
+    $empleado2 = new Persona('Eva', 'Álvarez', 4300);
+    echo "Una persona es un ".get_class($empleado2)."<br>";
+    //ver los métodos de la clase
+    print_r(get_class_methods("Empleado"));
+    echo "<br>";
+    //propiedades variables de la clase Empleado
+    print_r(get_class_vars("Empleado"));
+    echo "<br>";
+    //devuelve todas las propiedades de $empleado2
+    print_r(get_object_vars($empleado2));
+    echo "<br>";
 
-echo Empleado::toHTML($empleado1);
+    if(method_exists($empleado2,"toHTML")){
+        echo Persona::toHTML($empleado2);
+    }
+}
 ?>
