@@ -11,6 +11,10 @@ class Cliente{
     {}
 
     //métodos
+    public function getNumero(): int {
+        return $this->numero;
+    }
+
     public function tieneAlquilado(Soporte $soporte): bool{
         foreach($this->soportesAlquilados as $alquilado){
             if($alquilado === $soporte){
