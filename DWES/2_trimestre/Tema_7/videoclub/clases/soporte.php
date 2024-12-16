@@ -1,4 +1,6 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
+
 class Soporte{
     //atributos y constructor
     public function __construct(

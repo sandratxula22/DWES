@@ -1,4 +1,6 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
+
 class Videoclub{
     //atributos y constructor
     private array $productos = [];

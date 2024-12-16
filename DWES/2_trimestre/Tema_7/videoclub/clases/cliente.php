@@ -1,4 +1,6 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
+
 class Cliente{
     //atributos y constructor
     private array $soportesAlquilados = [];

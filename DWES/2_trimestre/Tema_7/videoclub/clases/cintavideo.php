@@ -1,4 +1,6 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
+
 class CintaVideo extends Soporte{
     //atributos y constructor
     public function __construct(
