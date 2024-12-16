@@ -1,0 +1,17 @@
+{
+    "name": "admin/videoclub",
+    "description": "videoclub clases",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Dwes\\ProyectoVideoclub\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sandratxula22",
+            "email": "sandra.picalv.1@iesjulianmarias.es"
+        }
+    ],
+    "require": {}
+}

@@ -1,6 +1,9 @@
 <?php
 namespace Dwes\ProyectoVideoclub;
 
+use Dwes\ProyectoVideoclub\Util\YaAlquiladoException;
+use Dwes\ProyectoVideoclub\Util\CupoSuperadoException;
+
 class Cliente{
     //atributos y constructor
     private array $soportesAlquilados = [];
@@ -34,12 +37,10 @@ class Cliente{
                 echo "Soporte ".$soporte->getNumero()." alquilado con éxito.<br>";
                 return true;
             }else{
-                echo "No se puede alquilar el soporte porque ya está alquilado.<br>";
-                return false;
+                throw new YaAlquiladoException();
             }
         }else{
-            echo "No se puede alquilar el soporte porque has llegado al límite de alquileres.<br>";
-            return false;
+            throw new CupoSuperadoException();
         }
     }
 

@@ -1,6 +1,9 @@
 <?php
 namespace Dwes\ProyectoVideoclub;
 
+use Dwes\ProyectoVideoclub\Util\SoporteNoEncontradoException;
+use Dwes\ProyectoVideoclub\Util\ClienteNoEncontradoException;
+
 class Videoclub{
     //atributos y constructor
     private array $productos = [];
@@ -77,10 +80,10 @@ class Videoclub{
         }else{
             echo "No se pudo realizar el alquiler.<br>";
             if(!$socioEncontrado){
-                echo "Cliente no encontrado.<br>";
+                throw new ClienteNoEncontradoException();
             }
             if(!$productoEncontrado){
-                echo "Producto no encontrado.<br>";
+                throw new SoporteNoEncontradoException();
             }
             return false;
         }

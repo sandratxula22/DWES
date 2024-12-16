@@ -1,13 +1,13 @@
 <?php
 // Incluir las clases necesarias
-require_once "clases/soporte.php";
-require_once "clases/cintavideo.php";
-require_once "clases/dvd.php";
-require_once "clases/juego.php";
-require_once "clases/cliente.php";
-require_once "clases/videoclub.php";
+require_once __DIR__ . '/vendor/autoload.php';
 
-
+use Dwes\ProyectoVideoclub\Soporte;
+use Dwes\ProyectoVideoclub\Util\ClienteNoEncontradoException;
+use Dwes\ProyectoVideoclub\Util\CupoSuperadoException;
+use Dwes\ProyectoVideoclub\Util\SoporteNoEncontradoException;
+use Dwes\ProyectoVideoclub\Util\VideoclubException;
+use Dwes\ProyectoVideoclub\Util\YaAlquiladoException;
 use Dwes\ProyectoVideoclub\Videoclub;
 
 //Crear una instancia de Videoclub
@@ -34,14 +34,47 @@ $videoclub->listarSocios();
 
 //Intentar alquilar productos
 echo "<h2>Alquileres:</h2>";
-$videoclub->alquilarSocioProducto(1, 1); // Juan alquila El Rey León
-$videoclub->alquilarSocioProducto(1, 2); // Juan alquila Matrix
-$videoclub->alquilarSocioProducto(1, 2); // Ya alquilado
-$videoclub->alquilarSocioProducto(1, 3); // Juan alquila FIFA 23 (debería alcanzar el límite)
-$videoclub->alquilarSocioProducto(1, 4); // Juan ya no puede alquilar por límite
-$videoclub->alquilarSocioProducto(2, 2); // Ana alquila Matrix
-$videoclub->alquilarSocioProducto(4, 1); // Cliente no encontrado
-$videoclub->alquilarSocioProducto(1, 5); // Producto no encontrado
+try{
+    $videoclub->alquilarSocioProducto(1, 1); // Juan alquila El Rey León
+    $videoclub->alquilarSocioProducto(1, 2); // Juan alquila Matrix
+    $videoclub->alquilarSocioProducto(1, 2); // Ya alquilado
+    //No sigue aquí porque una vez falla ya no continúa
+    $videoclub->alquilarSocioProducto(1, 3); // Juan alquila FIFA 23 (debería alcanzar el límite)
+    $videoclub->alquilarSocioProducto(1, 4); // Juan ya no puede alquilar por límite
+    $videoclub->alquilarSocioProducto(2, 2); // Ana alquila Matrix
+    $videoclub->alquilarSocioProducto(4, 1); // Cliente no encontrado
+    $videoclub->alquilarSocioProducto(1, 5); // Producto no encontrado
+}catch(YaAlquiladoException $e){
+    echo $e->getExceptionMessage();
+}catch(CupoSuperadoException $e){
+    echo $e->getExceptionMessage();
+}catch(ClienteNoEncontradoException $e){
+    echo $e->getExceptionMessage();
+}catch(SoporteNoEncontradoException $e){
+    echo $e->getExceptionMessage();
+}catch(VideoclubException $e){
+    echo $e->getMessage();
+}
+
+try{
+    $videoclub->alquilarSocioProducto(1, 3); // Juan alquila FIFA 23 (debería alcanzar el límite)
+    $videoclub->alquilarSocioProducto(1, 4); // Juan ya no puede alquilar por límite
+}catch(CupoSuperadoException $e){
+    echo $e->getExceptionMessage();
+}
+
+try{
+    $videoclub->alquilarSocioProducto(2, 2); // Ana alquila Matrix
+    $videoclub->alquilarSocioProducto(4, 1); // Cliente no encontrado
+}catch(ClienteNoEncontradoException $e){
+    echo $e->getExceptionMessage();
+}
+
+try{
+    $videoclub->alquilarSocioProducto(1, 5); // Producto no encontrado
+}catch(SoporteNoEncontradoException $e){
+    echo $e->getExceptionMessage();
+}
 
 //Mostrar el resumen final
 echo "<h2>Estado del videoclub:</h2>";
