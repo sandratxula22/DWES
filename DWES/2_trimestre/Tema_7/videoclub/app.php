@@ -2,7 +2,6 @@
 // Incluir las clases necesarias
 require_once __DIR__ . '/vendor/autoload.php';
 
-use Dwes\ProyectoVideoclub\Soporte;
 use Dwes\ProyectoVideoclub\Util\ClienteNoEncontradoException;
 use Dwes\ProyectoVideoclub\Util\CupoSuperadoException;
 use Dwes\ProyectoVideoclub\Util\SoporteNoEncontradoException;
@@ -80,4 +79,26 @@ try{
 echo "<h2>Estado del videoclub:</h2>";
 $videoclub->listarProductos();
 $videoclub->listarSocios();
+
+// Mostrar el estado después de los alquileres
+echo "<h3>Estado después de los alquileres:</h3>";
+echo "Productos alquilados: " . $videoclub->getNumProductosAlquilados() . "<br>";
+echo "Total de alquileres realizados: " . $videoclub->getNumTotalAlquileres() . "<br>";
+
+// Intentar devolver productos
+echo "<h2>Devoluciones:</h2>";
+
+try {
+    $videoclub->devolverSocioProducto(1, 1); // Juan devuelve El Rey León
+    $videoclub->devolverSocioProducto(1, 2); // Juan devuelve Matrix
+} catch (ClienteNoEncontradoException $e) {
+    echo $e->getMessage();
+} catch (SoporteNoEncontradoException $e) {
+    echo $e->getMessage();
+}
+
+// Mostrar el estado después de las devoluciones
+echo "<h3>Estado después de las devoluciones:</h3>";
+echo "Productos alquilados: " . $videoclub->getNumProductosAlquilados() . "<br>";
+echo "Total de alquileres realizados: " . $videoclub->getNumTotalAlquileres() . "<br>";
 ?>
