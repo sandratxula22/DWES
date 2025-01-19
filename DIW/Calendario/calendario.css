@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Google Sans Text", "Google Sans", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    background-color: #1b1b1b;
+}
+
+.container {
+    width: 85vw;
+    height: 85vh;
+    border-radius: 28px;
+    border: 1px solid #333537;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar {
+    flex: 1; 
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-collapse: collapse;
+}
+
+.week {
+    display: contents;
+}
+
+.day, .weekend {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    color: #e3e3e3;
+    background-color: #131314;
+    padding-top: 5px;
+    border: 1px solid #333537;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .calendar {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .weekend {
+        display: none;
+    }
+}
