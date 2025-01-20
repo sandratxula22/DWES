@@ -6,6 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hola {{ $nombre }}!</h1>
+    <p>
+        Usuario con id: {{ $id }}
+    </p>
 </body>
 </html>
