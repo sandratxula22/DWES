@@ -27,7 +27,7 @@ body {
 .calendar {
     flex: 1; 
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, calc(100%/7));
     border-collapse: collapse;
 }
 
@@ -50,7 +50,7 @@ body {
 
 @media (max-width: 768px) {
     .calendar {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(5, calc(100%/5));
     }
 
     .weekend {
