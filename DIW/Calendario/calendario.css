@@ -10,50 +10,76 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 20px;
-    background-color: #1b1b1b;
+    background-color: #f2f2f2;
+    padding: 2rem;
 }
 
 .container {
-    width: 85vw;
-    height: 85vh;
-    border-radius: 28px;
-    border: 1px solid #333537;
+    width: 100vw;
+    height: 100vh;
+    border: 1px dotted rgb(0, 0, 0, 0.5);
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
-.calendar {
+section {
     flex: 1; 
     display: grid;
     grid-template-columns: repeat(7, calc(100%/7));
     border-collapse: collapse;
 }
 
-.week {
+ul{
     display: contents;
 }
 
-.day, .weekend {
+li{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    color: #e3e3e3;
-    background-color: #131314;
+    color: #1F1F1F;
+    background-color: #fff;
     padding-top: 5px;
-    border: 1px solid #333537;
+    border: 1px dotted rgb(0, 0, 0, 0.5);
     font-weight: 500;
     font-size: 12px;
 }
 
+ul li span:first-child{
+    height: 25px;
+}
+
+ul li div{
+    width: 100%;
+}
+
+.evento p{
+    background-color: lightcoral;
+    padding: 0px 10px;
+    border-radius: 6px 0px 0px 6px;
+    margin-bottom: 5px;
+}
+
+.evento_hora{
+    display: flex;
+    flex-direction: row;
+}
+.circulo{
+    background-color: lightblue;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
 @media (max-width: 768px) {
-    .calendar {
+    section {
         grid-template-columns: repeat(5, calc(100%/5));
     }
 
-    .weekend {
+    li:nth-child(-n+2){
         display: none;
     }
+
 }
