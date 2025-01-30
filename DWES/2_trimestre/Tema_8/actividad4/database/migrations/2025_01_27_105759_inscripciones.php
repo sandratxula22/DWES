@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inscripciones', function (Blueprint $table) {
+        Schema::create('inscripcions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('curso_id');
             $table->unsignedBigInteger('estudiante_id');
@@ -21,14 +21,5 @@ return new class extends Migration
             $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
             $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade');
         });
-    }
-
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        //
     }
 };
