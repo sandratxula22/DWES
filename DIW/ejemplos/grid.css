@@ -1,0 +1,43 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 columnas de igual tamaño */
+    grid-template-rows: repeat(2, 100px);
+    /* 2 filas de 100px */
+    gap: 10px;
+    /* Espacio entre elementos */
+    border: 2px solid black;
+}
+
+.grid-item {
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+.grid-item:nth-child(1) {
+    grid-column: 2 / 4;
+    /* Ocupa de la columna 2 a la 4 */
+}
+
+.grid-item:nth-child(3) {
+    grid-row: 2;
+    /* Mueve este elemento a la segunda fila */
+}
+
+.grid-item:nth-child(4) {
+    display: none;
+    /* lo elimina del flujo y no ocupa espacio */
+}
+
+.grid-item:nth-child(5) {
+    visibility: hidden;
+    /* queda el espacio vacío */
+}
+
+.grid-item:nth-child(6) {
+    opacity: 0;
+    /* invisible pero mantiene su espacio */
+}

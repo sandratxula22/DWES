@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista con Flexbox</title>
+    <style>
+        /* Contenedor con Flexbox */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            /* Permite que los elementos se acomoden en varias filas si es necesario */
+            gap: 10px;
+            justify-content: space-between;
+            /* Distribuye los elementos con espacio entre ellos */
+            padding: 0;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        /* Estilos generales de los elementos */
+        section {
+            background-color: lightcoral;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 18px;
+            border: 1px solid black;
+            flex-basis: 30%;
+            /* Ocupa el 30% del contenedor por defecto */
+        }
+
+        /* Mover el segundo elemento */
+        section:nth-child(2) {
+            order: 1;
+            /* Cambia el orden y lo coloca en primer lugar */
+        }
+
+        /* Ocultar el tercer elemento */
+        section:nth-child(3) {
+            display: none;
+            /* Se elimina de la estructura */
+        }
+
+        /* Hacer invisible el cuarto elemento pero manteniendo su espacio */
+        section:nth-child(4) {
+            opacity: 0;
+            /* Hace invisible el elemento, pero mantiene su espacio */
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <section>Inicio</section>
+        <section>Servicios</section>
+        <section>Contacto</section>
+        <section>Nosotros</section>
+        <section>Blog</section>
+        <section>Soporte</section>
+    </nav>
+
+</body>
+
+</html>

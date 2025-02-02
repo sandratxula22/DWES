@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Navegación con Flexbox</title>
+    <style>
+        /* Contenedor de la barra de navegación */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            /* Espacio igual entre los elementos */
+            background-color: #333;
+            padding: 10px 30px;
+        }
+
+        /* Estilo de los elementos del menú */
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        /* Efecto al pasar el cursor sobre los enlaces */
+        nav a:hover {
+            background-color: #575757;
+        }
+
+        /* Menú con flexbox */
+        nav a:nth-child(1) {
+            flex-grow: 2;
+            /* Hace que el primer enlace crezca */
+        }
+
+        nav a:nth-child(2) {
+            flex-grow: 1;
+            /* Hace que el segundo enlace ocupe menos espacio */
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Servicios</a>
+        <a href="#">Contacto</a>
+        <a href="#">Nosotros</a>
+    </nav>
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementos de Dos en Dos con Flexbox</title>
+    <style>
+        /* Contenedor principal */
+        section {
+            display: flex;
+            flex-wrap: wrap;
+            /* Permite que los elementos se acomoden en varias filas */
+            justify-content: space-between;
+            /* Espacio entre los elementos */
+            gap: 20px;
+            /* Espacio entre los elementos */
+            padding: 20px;
+        }
+
+        /* Artículos (elementos individuales) */
+        article {
+            background-color: lightblue;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            border-radius: 8px;
+            width: 48%;
+            /* Hace que cada artículo ocupe el 48% del contenedor */
+            box-sizing: border-box;
+            /* Asegura que el padding no afecte el ancho total */
+        }
+
+        /* Cambiar el color al pasar el mouse sobre el elemento */
+        article:hover {
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section>
+        <article>Elemento 1</article>
+        <article>Elemento 2</article>
+        <article>Elemento 3</article>
+        <article>Elemento 4</article>
+        <article>Elemento 5</article>
+        <article>Elemento 6</article>
+    </section>
+
+</body>
+
+</html>

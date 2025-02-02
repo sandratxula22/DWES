@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista con Flexbox - Ejemplo 1</title>
+    <style>
+        /* Contenedor de flexbox */
+        nav {
+            display: flex;
+            flex-wrap: wrap; /* Los elementos pueden ir a nuevas filas si es necesario */
+            justify-content: center; /* Centra los elementos en el contenedor */
+            gap: 15px; /* Espacio entre los elementos */
+            padding: 0;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* Estilo de los elementos */
+        section {
+            background-color: lightgreen;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 18px;
+            border: 1px solid black;
+            flex-basis: 45%; /* Cada sección ocupará el 45% del ancho del contenedor */
+        }
+
+        /* Modificación de orden de los elementos */
+        section:nth-child(1) {
+            order: 3; /* Coloca el primer elemento al final */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <section>Inicio</section>
+        <section>Servicios</section>
+        <section>Contacto</section>
+        <section>Nosotros</section>
+        <section>Blog</section>
+        <section>Soporte</section>
+    </nav>
+
+</body>
+</html>

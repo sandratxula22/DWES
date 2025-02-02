@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista con Flexbox - Ejemplo 2</title>
+    <style>
+        /* Contenedor de flexbox vertical */
+        nav {
+            display: flex;
+            flex-direction: column; /* Organiza los elementos en una columna */
+            align-items: center; /* Centra los elementos de manera horizontal */
+            gap: 15px;
+            padding: 20px;
+            max-width: 300px;
+            margin: auto;
+        }
+
+        /* Estilo de los elementos */
+        section {
+            background-color: lightblue;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 18px;
+            border: 1px solid black;
+            width: 100%; /* Ocupa todo el ancho del contenedor */
+        }
+
+        /* Hacer el tercer elemento más grande */
+        section:nth-child(3) {
+            flex-grow: 2; /* Hace que este elemento ocupe más espacio */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <section>Inicio</section>
+        <section>Servicios</section>
+        <section>Contacto</section>
+        <section>Nosotros</section>
+        <section>Blog</section>
+        <section>Soporte</section>
+    </nav>
+
+</body>
+</html>

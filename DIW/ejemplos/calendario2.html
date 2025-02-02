@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            font-size: min(max(2vw, 8px), 19px);
+        }
+        ul {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: 25px repeat(5, 1fr);
+            height: 100%;
+            width: 100%;
+            padding: 1rem;
+            list-style: none;
+            border: 1px dotted rgba(0, 0, 0, 0.5);
+        }
+        li {
+            border: 1px dotted rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+        ul li:nth-child(-n+7) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        .evento-dia {
+            background-color: #f08080;
+            width: 100%;
+            text-align: center;
+            padding: 2px 0;
+        }
+        .evento-hora::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #ADD8E6;
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+        @media (orientation: portrait) {
+            ul {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            ul li:nth-child(7n),
+            ul li:nth-child(7n-1) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>Lun</li> <li>Mar</li> <li>Mié</li> <li>Jue</li> <li>Vie</li> <li>Sáb</li> <li>Dom</li>
+        <li>1 <div class="evento-dia">Evento</div></li> 
+        <li>2 <div class="evento-hora">Evento</div></li> 
+        <li>3</li> <li>4</li> <li>5</li> <li>6</li> <li>7</li>
+        <li>8</li> <li>9</li> <li>10</li> <li>11</li> <li>12</li> <li>13</li> <li>14</li>
+        <li>15</li> <li>16</li> <li>17</li> <li>18</li> <li>19</li> <li>20</li> <li>21</li>
+        <li>22</li> <li>23</li> <li>24</li> <li>25</li> <li>26</li> <li>27</li> <li>28</li>
+        <li>29</li> <li>30</li> <li>31</li>
+    </ul>
+</body>
+</html>
