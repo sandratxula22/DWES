@@ -1,19 +1,65 @@
-# ACTIVIDAD 4
+# PROYECTO LARAVEL 
 
-- Diseño de la bbdd
-- Creación de Modelos y Migraciones
-    * php artisan make:model Nota - m --> Para crear un modelo con una migración asociada 
-    * php artisan make:model Nota --> Para crear solo el modelo
-    * php artisan make:migration create_notas_table --> Para crear solo la migración
-    * php artisan migrate:
-        - Ejecutar migraciones
-        - Laravel genera estas tablas en la bbdd que configurasre en .env
-    * php artisan migrate:status
-    * Modificar los modelos y migraciones como sea necesario
-- Creación de controladores para manejar la visualización de los cursos, estudiantes e inscripciones
-    * php artisan make:controller CursoController
-- Crear las vistas para mostrar los datos
-    * En resources/views/cursos/index.blade.php --> Una para cada
-    * Usamos layout para añadir la navbar que llevara un enlace a cada una de las views de las tablas
-- Definir las rutas en routes/web.php
-- 
+## Estructura del Proyecto
+
+- laravel new proyecto2_Sandra
+- php artisan serve
+
+## Configuración de la Base de Datos
+
+- Crear los modelos y migraciones:
+    * php artisan make:model Categoria -m
+    * php artisan make:model Chollo -m
+- Definir las migraciones:
+    * /database/migrations/...create_categorias_table.php
+    * /database/migrations/...create_chollo_table.php
+    * string o text
+        - string 255 caracteres
+        - text 65535 caracteres
+    * clave foránea (dos formas) RELACIÓN 1:N
+        1. $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade'); --> constrained('categorias) = nombre de la tabla de la que viene
+        2. $table->unsignedBigInteger('categoria_id');
+        2. $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
+    * decimal
+        - $table->decimal('precio', 8, 2); --> 8 dígitos en total // 2 decimales // ej: 123456.78
+    * boolean
+        - $table->boolean('disponible')->default(true); --> Sin default podría ser NULL
+- Definir los modelos:
+    * /app/Models/Categoria.php
+    * /app/Models/Chollo.php
+    * Relación de tablas:
+        1. Categoria.php:
+            - public function chollo(){ --> Tabla con la que relacionamos
+            -   return $this->hasMany(Chollo::class, 'categoria_id'); --> Relación 1:N Categorías hasMany Chollos a través de categoria_id (la foreign key)
+            - }
+        2. Chollo.php:
+            - public function categoria(){ --> Tabla con la que relacionamos
+            -   return $this->belongsTo(Categoria::class, 'categoria_id'); --> Relación 1:N Chollos belongsTo Categorías a través de categoria_id (la foreign key)
+            - }
+    * $fillable = []
+        - Campos de la bbdd que se pueden asignar en masa, es decir que se pueden usar con create() o update() para insertar o actualizar registros
+- Ejecutar las migraciones:
+    * php artisan migrate
+    * php artisan migrate:status --> para ver que han ido bien
+    * php artisan migrate:rollback --> para deshacer la última migración por si ha salido mal
+    * php artisan migrate:reset --> para deshacer todas las migraciones
+    * php artisan migrate:fresh --> para deshacer todas las migraciones y volver a hacerlas
+
+## Vistas a Implementar
+
+0. Layout:
+    - Crear el layout base:
+        * /resources/views/layouts/app.blade.php
+        * @yield('content') --> IMPORTANTE: donde va a aparecer el contenido después
+1. Página principal:
+    - Crear el controlador:
+        * php artisan make:controller CholloController
+        * /app/Http/Controllers/CholloController.php
+        * Incluir los modelos: use App\Models\Chollo; & use App\Models\Categoria;
+    - Crear la vista principal:
+        * /resources/views/chollos/index.blade.php
+    
+
+
+    - Definir rutas:
+        * /routes/web.php
