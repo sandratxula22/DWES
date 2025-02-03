@@ -1,0 +1,173 @@
+:root {
+    --moderate-violet: hsl(263, 55%, 52%);
+    --white: hsl(0, 0%, 100%);
+    --green: hsl(151, 10.97%, 69.61%);
+    --dark-green: hsl(152.3, 63.4%, 16.1%);
+    --very-dark-grayish-blue: hsl(217, 19%, 35%);
+    --very-dark-blackish-blue: hsl(219, 29%, 14%);
+    --light-gray: hsl(0, 0%, 81%);
+}
+
+@font-face {
+    font-family: "Faculty Glyphic";
+    src: url("https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap");
+}
+
+@font-face {
+    font-family: "Barlow Semi Condensed";
+    src: url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Faculty+Glyphic&display=swap");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--light-gray);
+    font-size: 13px;
+}
+
+main{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'Barlow Semi Condensed';
+    font-weight: 500;
+
+}
+
+main article{
+    padding: 25px;
+    border-radius: 15px;
+    color: var(--white);
+}
+
+main article > header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+main article > header > img {
+    border-radius: 50%;
+}
+
+main article > header > address {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    font-style: normal;
+}
+
+main article > header > address > span {
+    opacity: 50%;
+}
+
+#daniel{
+    background-color: var(--moderate-violet);
+    background-image: url(Images/comillas.svg);
+    background-repeat: no-repeat;
+    background-position: 80% 0%;
+}
+
+#jorge{
+    background-color: var(--very-dark-grayish-blue);
+}
+
+#ana, #carmen{
+    background-color: var(--white);
+    color: var(--very-dark-grayish-blue);
+}
+
+#pablo{
+    background-color: var(--very-dark-blackish-blue);
+}
+
+blockquote{
+    opacity: 70%;
+}
+
+blockquote::before{
+    content: '<<';
+}
+
+blockquote::after{
+    content: '>>';
+}
+
+body > header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--green);
+    margin-bottom: 40px;
+    font-family: "Faculty Glyphic";
+    font-weight: 700;
+}
+
+body > header > img{
+    width: 50vw;
+}
+
+body > header > h1 {
+    width: 100vw;
+}
+
+body > header > form {
+    width: 90vw;
+}
+
+.invisible {
+    display: none;
+}
+
+.darkGreen{
+    color: var(--dark-green);
+}
+
+@media(min-width: 480px){
+    body > header {
+        display: flex;
+        flex-direction: row;
+    }
+
+    body > header > img{
+        width: 100px;
+    }
+
+    main{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 200px);
+        justify-content: center;
+        padding: 0px 10px;
+    }
+
+    #daniel, #pablo {
+        grid-column: span 2;
+    }
+}
+
+@media(min-width:850px){
+    main{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0px 25px;
+    }
+
+    #carmen{
+        grid-row: 1 / span 2;
+        grid-column-end: -1;
+    }
+}
+
+@media(min-width:1150px){
+    main{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
