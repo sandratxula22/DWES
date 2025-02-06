@@ -56,10 +56,14 @@
         * php artisan make:controller CholloController
         * /app/Http/Controllers/CholloController.php
         * Incluir los modelos: use App\Models\Chollo; & use App\Models\Categoria;
-    - Crear la vista principal:
+    - Crear la vista principal (tarjetas):
         * /resources/views/chollos/index.blade.php
-    
-
-
+        * Foreach para recorrer los chollos y mostrarlos en tarjetas
+        * Cada tarjeta tiene un botón de editar que redirige al formulario de edición y un botón de borrar que envía una solicitud DELETE para eliminar el chollo:
+            - GET (/chollos/{id}/edit): Muestra el formulario de edición.
+            - PUT (/chollos/{id}): Procesa los cambios y actualiza el chollo.
+            - Métoto edit() en el controlador que carga un formulario buscando por el id del chollo que se va a editar
+            - Metodo update()
+        * Usamos el método {{ $chollos->links() }} para mostrar los enlaces de paginación
     - Definir rutas:
         * /routes/web.php

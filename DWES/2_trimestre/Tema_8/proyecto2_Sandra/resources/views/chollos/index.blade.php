@@ -2,18 +2,6 @@
 
 @section('content')
 <div class="container">
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Chollos</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-                <li class="nav-item active"><a class="nav-link" href="#">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Nuevos</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Destacados</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <h1 class="mt-4">Listado de Chollos</h1>
 
     <!-- LISTADO DE CHOLLOS -->
@@ -21,27 +9,36 @@
         @foreach ($chollos as $chollo)
         <div class="col-md-4 mb-4">
             <div class="card">
-                <img src="{{ $chollo->imagen_url }}" class="card-img-top" alt="{{ $chollo->titulo }}">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $chollo->titulo }}</h5>
+                    <a href="{{ route('chollos.show', $chollo->id) }}">
+                        <h5 class="card-title">{{ $chollo->titulo }}</h5>
+                    </a>
                     <p class="card-text">{{ $chollo->descripcion }}</p>
                     <p><strong>Categoría:</strong> {{ $chollo->categoria->name }}</p>
 
-                    {{-- EDITAR Y BORRAR
+                    <!-- EDITAR Y BORRAR -->
                     <a href="{{ route('chollos.edit', $chollo->id) }}" class="btn btn-primary">Editar</a>
-                    <form action="{{ route('chollos.destroy', $chollo->id) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('chollos.destroy', $chollo->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Borrar</button>
                     </form>
-                    --}}
                 </div>
             </div>
         </div>
         @endforeach
     </div>
+    <!-- Mensaje editado -->
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-    <!-- PAGINACIÓN -->
+    <!-- Mensaje eliminado -->
+    @if(session('eliminado'))
+        <div class="alert alert-danger">{{ session('eliminado') }}</div>
+    @endif
+
+    <!-- PAGINACIÓN  -->
     <div class="d-flex justify-content-center">
         {{ $chollos->links() }}
     </div>

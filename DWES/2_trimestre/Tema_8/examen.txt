@@ -1,1 +1,43 @@
 2 tablas relacion 1 n
+
+$table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
+
+Categoria.php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Categoria extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['name'];
+
+    public function chollos()
+    {
+        return $this->hasMany(Chollo::class);
+    }
+}
+
+
+Chollo.php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Chollo extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'titulo', 'descripcion', 'url', 'categoria_id',
+        'puntuacion', 'precio', 'precio_descuento', 'disponible'
+    ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+}
