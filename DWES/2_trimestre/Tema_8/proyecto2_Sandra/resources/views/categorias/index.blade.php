@@ -41,7 +41,7 @@
 
     <!-- PAGINACIÓN  -->
     <div class="d-flex justify-content-center">
-        {{ $categorias->links() }}
+        {{ $categorias->links('pagination::bootstrap-5') }}
     </div>
 </div>
 

@@ -42,7 +42,7 @@
 
     <!-- PAGINACIÓN  -->
     <div class="d-flex justify-content-center">
-        {{ $chollos->links() }}
+        {{ $chollos->links('pagination::bootstrap-5') }}
     </div>
 </div>
 @endsection
