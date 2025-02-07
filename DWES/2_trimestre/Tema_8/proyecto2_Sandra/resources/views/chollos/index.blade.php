@@ -10,7 +10,7 @@
     <div class="row">
         @foreach ($chollos as $chollo)
         <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-body">
                     <a href="{{ route('chollos.show', $chollo->id) }}">
                         <h5 class="card-title">{{ $chollo->titulo }}</h5>

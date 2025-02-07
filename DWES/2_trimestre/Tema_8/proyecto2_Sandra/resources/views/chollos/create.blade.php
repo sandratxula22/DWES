@@ -8,7 +8,6 @@
 
     <form action="{{ route('chollos.insert')}}" method="POST">
         @csrf
-
         <div class="mb-3">
             <label for="titulo" class="form-label">Título del Chollo</label>
             <input type="text" name="titulo" id="titulo" class="form-control" value="{{ old('titulo') }}" >

@@ -22,6 +22,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('chollos.nuevos') }}">Nuevos</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('chollos.destacados') }}">Destacados</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('chollos.create') }} ">Crear</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('categorias.index') }}">Categorías</a></li>
             </ul>
         </div>
     </nav>
